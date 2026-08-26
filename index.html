@@ -38,9 +38,14 @@
     startBtn.onclick = function() {
       startBtn.style.display = "none";
       document.getElementById("status").innerText = "正在請求相機權限...";
-
+      /*
       navigator.mediaDevices.getUserMedia({
         video: { facingMode: "user", width: 300, height: 300 },
+        audio: false
+      })
+      */
+      navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment", width: 300, height: 300 },
         audio: false
       })
       .then(function(stream) {
