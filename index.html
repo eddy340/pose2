@@ -129,20 +129,16 @@
       drawCanvas(pose);
     }
 
-    function drawCanvas(pose) {
-      // 鏡頭水平翻轉 (鏡像效果)
-      ctx.save();
-      ctx.scale(-1, 1);
-      ctx.translate(-canvas.width, 0);
+function drawCanvas(pose) {
+      // Draw standard non-mirrored frame for environment camera
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      ctx.restore();
 
-      // 畫出關鍵點與骨架
-      if (pose) {
+      // Draw keypoints and skeleton directly over the frame
+      /* if (pose) {
         const minPartConfidence = 0.5;
         tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
         tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
-      }
+      } */
     }
   </script>
 </body>
