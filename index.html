@@ -26,9 +26,6 @@
     // ⚠️ 記得替換成你在 Teachable Machine 匯出的模型網址 (包含結尾斜線 /)
     //const URL = "https://teachablemachine.withgoogle.com/models/9rSN8xoQ2/";
     const URL = "https://teachablemachine.withgoogle.com/models/dAbBxNxvy/";
-    
-    
-    //https://teachablemachine.withgoogle.com/models/9GH08O2__/
 
     let model, video, canvas, ctx, maxPredictions;
     let lastSentAction = "";
@@ -42,12 +39,7 @@
     startBtn.onclick = function() {
       startBtn.style.display = "none";
       document.getElementById("status").innerText = "正在請求相機權限...";
-      /*
-      navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "user", width: 300, height: 300 },
-        audio: false
-      })
-      */
+
       navigator.mediaDevices.getUserMedia({
         video: { facingMode: "environment", width: 300, height: 300 },
         audio: false
@@ -129,16 +121,9 @@
       drawCanvas(pose);
     }
 
-function drawCanvas(pose) {
+    function drawCanvas(pose) {
       // Draw standard non-mirrored frame for environment camera
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-      // Draw keypoints and skeleton directly over the frame
-      /* if (pose) {
-        const minPartConfidence = 0.5;
-        tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
-        tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
-      } */
     }
   </script>
 </body>
