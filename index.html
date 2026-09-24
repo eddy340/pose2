@@ -24,9 +24,7 @@
 
   <script type="text/javascript">
     // ⚠️ 記得替換成你在 Teachable Machine 匯出的模型網址 (包含結尾斜線 /)
-    //const URL = "https://teachablemachine.withgoogle.com/models/9rSN8xoQ2/";
-    const URL = "https://teachablemachine.withgoogle.com/models/dAbBxNxvy/";
-
+    const URL = "https://teachablemachine.withgoogle.com/models/hx2CKcKZ2/";
     let model, video, canvas, ctx, maxPredictions;
     let lastSentAction = "";
 
@@ -49,8 +47,12 @@
         return video.play(); // 原生 video 播放 (解決 play() 阻擋問題)
       })
       .then(function() {
-        canvas.width = 300;
-        canvas.height = 300;
+	  
+		video.width = 300;
+		video.height = 300;
+		canvas.width = 300;
+		canvas.height = 300;
+        
         document.getElementById("status").innerText = "相機已啟動，載入 AI 模型中...";
         loadModel();
       })
@@ -121,10 +123,18 @@
       drawCanvas(pose);
     }
 
-    function drawCanvas(pose) {
-      // Draw standard non-mirrored frame for environment camera
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    }
+	function drawCanvas(pose) {
+  // 1. Draw camera video background onto canvas
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  // 2. Draw keypoints and skeleton directly
+  if (pose && pose.keypoints) {
+    const minPartConfidence = 0.5;
+
+    tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+    tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
+  }
+}
   </script>
 </body>
 </html>
